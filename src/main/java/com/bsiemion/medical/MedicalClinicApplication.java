@@ -9,3 +9,12 @@ public class MedicalClinicApplication {
 		SpringApplication.run(MedicalClinicApplication.class, args);
 	}
 }
+//{
+//		"email" : "frittfall123@op.pl",
+//		"password" : "qwerty",
+//		"idCardNo" : "2354642626",
+//		"firstName" : "Błażej",
+//		"lastName" : "Siemion",
+//		"phoneNumber" : "123456789",
+//		"birthday" : "2000-01-01"
+//		}

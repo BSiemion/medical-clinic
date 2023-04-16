@@ -1,8 +1,11 @@
 package com.bsiemion.medical.controller;
 
-import com.bsiemion.medical.model.Patient;
+import com.bsiemion.medical.model.dto.MedicalMessageDto;
+import com.bsiemion.medical.model.dto.PatientDto;
+import com.bsiemion.medical.model.entity.Patient;
 import com.bsiemion.medical.servis.PatientService;
 import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,28 +16,29 @@ import java.util.List;
 @RequestMapping(path = "/patients")
 public class PatientController {
     private final PatientService patientService;
+
     @PostMapping
-    public ResponseEntity<String> addPatient(@RequestBody Patient patient){
+    public ResponseEntity<PatientDto> addPatient(@RequestBody Patient patient){
         return ResponseEntity.status(200).body(patientService.addPatient(patient));
     }
     @DeleteMapping("/{email}")
-    public ResponseEntity<String> removePatient(@PathVariable String email){
+    public ResponseEntity<PatientDto> removePatient(@PathVariable String email){
         return ResponseEntity.status(200).body(patientService.removePatient(email));
     }
     @PutMapping("/{email}")
-    public ResponseEntity<String> editPatient(@PathVariable String email, @RequestBody Patient editInfo){
+    public ResponseEntity<PatientDto> editPatient(@PathVariable String email, @RequestBody Patient editInfo){
         return ResponseEntity.status(200).body(patientService.editPatient(email, editInfo));
     }
     @PatchMapping("/{email}")
-    public ResponseEntity<String> editPassword(@PathVariable String email, @RequestBody String password){
+    public ResponseEntity<MedicalMessageDto> editPassword(@PathVariable String email, @RequestBody String password){
         return ResponseEntity.status(200).body(patientService.editPassword(email, password));
     }
     @GetMapping("/{email}")
-    public ResponseEntity<Patient> getPatient(@PathVariable String email) {
+    public ResponseEntity<PatientDto> getPatient(@PathVariable String email) {
         return ResponseEntity.status(200).body(patientService.getPatient(email));
     }
     @GetMapping
-    public List<Patient> getPatients(){
+    public List<PatientDto> getPatients(){
         return patientService.getAllPatients();
     }
 }
