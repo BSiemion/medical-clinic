@@ -3,9 +3,8 @@ package com.bsiemion.medical.controller;
 import com.bsiemion.medical.model.dto.MedicalMessageDto;
 import com.bsiemion.medical.model.dto.PatientDto;
 import com.bsiemion.medical.model.entity.Patient;
-import com.bsiemion.medical.servis.PatientService;
+import com.bsiemion.medical.service.PatientService;
 import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

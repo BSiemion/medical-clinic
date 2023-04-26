@@ -1,4 +1,4 @@
-package com.bsiemion.medical.servis;
+package com.bsiemion.medical.service;
 
 import com.bsiemion.medical.exception.PatientIllegalDataException;
 import com.bsiemion.medical.exception.PatientNotFoundException;
@@ -11,15 +11,15 @@ import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
 public class PatientService {
-    PatientRepository patientRepository;
-    PatientDtoMapper patientDtoMapper;
+    private PatientRepository patientRepository;
+    private PatientDtoMapper patientDtoMapper;
 
     public PatientDto addPatient(Patient patient) {
         patientRepository.save(patient);
@@ -44,14 +44,6 @@ public class PatientService {
         return patientDtoMapper.patientToDto(editInfo);
     }
 
-    private void validatePatient(Patient editInfo) {
-        if (editInfo.getEmail() == null || editInfo.getPassword() == null || editInfo.getBirthday() == null ||
-                editInfo.getLastName() == null || editInfo.getFirstName() == null || editInfo.getPhoneNumber() == null ||
-                editInfo.getIdCardNo() == null) {
-            throw new PatientIllegalDataException("Some value is null");
-        }
-    }
-
     public MedicalMessageDto editPassword(String email, String password) {
         Patient patient = patientRepository.findByEmail(email).orElseThrow(PatientNotFoundException::new);
         patient.setPassword(password);
@@ -71,5 +63,12 @@ public class PatientService {
     public PatientDto getPatient(String email) {
         Patient patient = patientRepository.findByEmail(email).orElseThrow(PatientNotFoundException::new);
         return patientDtoMapper.patientToDto(patient);
+    }
+    private void validatePatient(Patient editInfo) {
+        if (editInfo.getEmail() == null || editInfo.getPassword() == null || editInfo.getBirthday() == null ||
+                editInfo.getLastName() == null || editInfo.getFirstName() == null || editInfo.getPhoneNumber() == null ||
+                editInfo.getIdCardNo() == null) {
+            throw new PatientIllegalDataException("Some value is null");
+        }
     }
 }
