@@ -1,7 +1,7 @@
 package com.bsiemion.medical.controller;
 
 import com.bsiemion.medical.model.entity.Patient;
-import com.bsiemion.medical.repozitory.PatientRepository;
+import com.bsiemion.medical.repository.PatientRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

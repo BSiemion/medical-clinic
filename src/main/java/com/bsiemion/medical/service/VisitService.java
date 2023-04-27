@@ -9,20 +9,17 @@ import com.bsiemion.medical.model.dto.VisitCreationDto;
 import com.bsiemion.medical.model.dto.VisitDto;
 import com.bsiemion.medical.model.entity.Patient;
 import com.bsiemion.medical.model.entity.Visit;
-import com.bsiemion.medical.repozitory.PatientRepository;
-import com.bsiemion.medical.repozitory.VisitRepository;
-import lombok.AllArgsConstructor;
+import com.bsiemion.medical.repository.PatientRepository;
+import com.bsiemion.medical.repository.VisitRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.time.*;
-import java.time.format.DateTimeFormatter;
+import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class VisitService {
     private final VisitRepository visitRepository;
     private final PatientRepository patientRepository;
@@ -46,8 +43,10 @@ public class VisitService {
 
     public VisitDto addPatientToVisit(String email, LocalDateTime term) {
         LocalDateTime currentTime = LocalDateTime.now();
-        Patient patient = patientRepository.findByEmail(email).orElseThrow(PatientNotFoundException::new);
-        Visit visit = visitRepository.findByTerm(term).orElseThrow(VisitNotFoundException::new);
+        Patient patient = patientRepository.findByEmail(email)
+                .orElseThrow(PatientNotFoundException::new);
+        Visit visit = visitRepository.findByTerm(term)
+                .orElseThrow(VisitNotFoundException::new);
         if (visit.getTerm().isBefore(currentTime)) {
             throw new VisitIllegalDateException("You can not reserve visit before current time");
         }
@@ -81,11 +80,4 @@ public class VisitService {
                 .orElseThrow(VisitNotFoundException::new);
         return visitDtoMapper.visitToDto(visit);
     }
-
-////    private static LocalDateTime getLocalDateTime() {
-////        LocalDateTime actualTime = LocalDateTime.now();
-////        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-////        String formattedActualTime = actualTime.format(formatter);
-////        return LocalDateTime.parse(formattedActualTime, formatter);
-////    }
 }

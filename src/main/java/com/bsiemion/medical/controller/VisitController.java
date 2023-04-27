@@ -3,14 +3,14 @@ package com.bsiemion.medical.controller;
 import com.bsiemion.medical.model.dto.VisitCreationDto;
 import com.bsiemion.medical.model.dto.VisitDto;
 import com.bsiemion.medical.service.VisitService;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
-@AllArgsConstructor
+@RequiredArgsConstructor
 @RequestMapping(path = "/visits")
 @RestController
 public class VisitController {

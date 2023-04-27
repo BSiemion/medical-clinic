@@ -7,10 +7,10 @@ import com.bsiemion.medical.model.entity.Visit;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-public class TestDataFactory {
-    public static Visit createVisit(LocalDateTime localDateTime, Patient patient) {
+public final class TestDataFactory {
+    public static Visit createVisit(LocalDateTime localDateTime, Patient patient, Long id) {
         return Visit.builder()
-                .id(1L)
+                .id(id)
                 .term(localDateTime)
                 .patient(patient)
                 .build();

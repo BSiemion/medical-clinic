@@ -4,13 +4,13 @@ import com.bsiemion.medical.model.dto.MedicalMessageDto;
 import com.bsiemion.medical.model.dto.PatientDto;
 import com.bsiemion.medical.model.entity.Patient;
 import com.bsiemion.medical.service.PatientService;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@AllArgsConstructor
+@RequiredArgsConstructor
 @RestController
 @RequestMapping(path = "/patients")
 public class PatientController {

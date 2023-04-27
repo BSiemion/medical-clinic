@@ -1,4 +1,4 @@
-package com.bsiemion.medical.repozitory;
+package com.bsiemion.medical.repository;
 
 import com.bsiemion.medical.model.entity.Patient;
 import com.bsiemion.medical.model.entity.Visit;

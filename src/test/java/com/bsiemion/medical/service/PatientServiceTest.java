@@ -6,7 +6,7 @@ import com.bsiemion.medical.exception.PatientNotFoundException;
 import com.bsiemion.medical.mapper.PatientDtoMapper;
 import com.bsiemion.medical.model.dto.PatientDto;
 import com.bsiemion.medical.model.entity.Patient;
-import com.bsiemion.medical.repozitory.PatientRepository;
+import com.bsiemion.medical.repository.PatientRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

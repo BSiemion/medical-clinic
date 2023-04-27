@@ -10,8 +10,8 @@ import com.bsiemion.medical.model.dto.VisitCreationDto;
 import com.bsiemion.medical.model.dto.VisitDto;
 import com.bsiemion.medical.model.entity.Patient;
 import com.bsiemion.medical.model.entity.Visit;
-import com.bsiemion.medical.repozitory.PatientRepository;
-import com.bsiemion.medical.repozitory.VisitRepository;
+import com.bsiemion.medical.repository.PatientRepository;
+import com.bsiemion.medical.repository.VisitRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -90,7 +90,7 @@ public class VisitServiceTest {
     @Test
     void addPatientToVisit_PatientAndVisitExist_Added() {
         Patient patient = TestDataFactory.createPatient("test");
-        Visit visit = TestDataFactory.createVisit(LocalDateTime.of(2300, 10, 10, 10, 30), null);
+        Visit visit = TestDataFactory.createVisit(LocalDateTime.of(2300, 10, 10, 10, 30), null, null);
         when(patientRepository.findByEmail(eq("test"))).thenReturn(Optional.of(patient));
         when(visitRepository.findByTerm(eq(LocalDateTime.of(2300, 10, 10, 10, 30))))
                 .thenReturn(Optional.of(visit));
@@ -112,21 +112,11 @@ public class VisitServiceTest {
         Assertions.assertEquals("Patient not found", result.getMessage());
     }
 
-//    @Test
-//    void addPatientToVisit_VisitDoesNotExist_ExceptionThrown() {
-//        Patient patient = createPatient("test");
-//        when(patientRepository.findByEmail(eq("test"))).thenReturn(Optional.of(patient));
-//        when(visitRepository.findByPatient(eq(patient))).thenReturn(Optional.empty());
-//
-//        VisitNotFoundException result = Assertions.assertThrows(VisitNotFoundException.class,
-//                () -> visitService.getPatientVisits("test"));
-//        Assertions.assertEquals("Visit not found", result.getMessage());
-//    }
 
     @Test
     void addPatientToVisit_VisitBeforeCurrentTime_ExceptionThrown() {
         Patient patient = TestDataFactory.createPatient("test");
-        Visit visit = TestDataFactory.createVisit(LocalDateTime.of(2000, 10, 10, 10, 30), null);
+        Visit visit = TestDataFactory.createVisit(LocalDateTime.of(2000, 10, 10, 10, 30), null, null);
         when(patientRepository.findByEmail(eq("test"))).thenReturn(Optional.of(patient));
         when(visitRepository.findByTerm(eq(LocalDateTime.of(2000, 10, 10, 10, 30))))
                 .thenReturn(Optional.of(visit));
@@ -139,7 +129,7 @@ public class VisitServiceTest {
     @Test
     void addPatientToVisit_VisitNotAvailable_ExceptionThrown() {
         Patient patient = TestDataFactory.createPatient("test");
-        Visit visit = TestDataFactory.createVisit(LocalDateTime.of(2300, 10, 10, 10, 30), TestDataFactory.createPatient("123"));
+        Visit visit = TestDataFactory.createVisit(LocalDateTime.of(2300, 10, 10, 10, 30), TestDataFactory.createPatient("123"), null);
         when(patientRepository.findByEmail(eq("test"))).thenReturn(Optional.of(patient));
         when(visitRepository.findByTerm(eq(LocalDateTime.of(2300, 10, 10, 10, 30))))
                 .thenReturn(Optional.of(visit));
@@ -149,20 +139,7 @@ public class VisitServiceTest {
         Assertions.assertEquals("This date is already taken", result.getMessage());
     }
 
-//    @Test
-//    void getPatientVisits_PatientExists_Returned() {
-//        Patient patient = createPatient("test");
-//        List<Visit> visits = new ArrayList<>();
-//        visits.add(createVisit(LocalDateTime.of(2300, 10, 10, 10, 30), createPatient("test")));
-//        visits.add(createVisit(LocalDateTime.of(2200, 5, 1, 10, 15), createPatient("test")));
-//        when(patientRepository.findByEmail(eq("test"))).thenReturn(Optional.of(patient));
-//        when(visitRepository.findByPatient(eq(patient))).thenReturn(Optional.of(visits));
-//
-//        List<VisitDto> result = visitService.getPatientVisits("test");
-//        Assertions.assertEquals(2, result.size());
-//        Assertions.assertEquals(patient, result.get(0).getPatient());
-//        verify(visitRepository, times(1)).findByPatient(eq(patient));
-//    }
+
 
     @Test
     void getPatientVisits_PatientDoesNotExist_ExceptionThrown() {
@@ -173,22 +150,11 @@ public class VisitServiceTest {
         Assertions.assertEquals("Patient not found", result.getMessage());
     }
 
-//    @Test
-//    void getPatientVisits_VisitDoesNotExist_ExceptionThrown() {
-//        Patient patient = createPatient("test");
-//        when(patientRepository.findByEmail(eq("test"))).thenReturn(Optional.of(patient));
-//        when(visitRepository.findByPatient(eq(patient))).thenReturn(Optional.empty());
-//
-//        VisitNotFoundException result = Assertions.assertThrows(VisitNotFoundException.class,
-//                () -> visitService.getPatientVisits("test"));
-//        Assertions.assertEquals("Visit not found", result.getMessage());
-//    }
-
     @Test
     void getVisits_VisitExists_Returned() {
         List<Visit> visits = new ArrayList<>();
-        visits.add(TestDataFactory.createVisit(LocalDateTime.of(2300, 10, 10, 10, 30), TestDataFactory.createPatient("test")));
-        visits.add(TestDataFactory.createVisit(LocalDateTime.of(2200, 5, 1, 10, 15), TestDataFactory.createPatient("test")));
+        visits.add(TestDataFactory.createVisit(LocalDateTime.of(2300, 10, 10, 10, 30), TestDataFactory.createPatient("test"), null));
+        visits.add(TestDataFactory.createVisit(LocalDateTime.of(2200, 5, 1, 10, 15), TestDataFactory.createPatient("test"), null));
         when(visitRepository.findAll()).thenReturn(visits);
 
         List<VisitDto> result = visitService.getVisits();
@@ -198,7 +164,7 @@ public class VisitServiceTest {
 
     @Test
     void getVisit_VisitExists_Returned() {
-        Visit visit = TestDataFactory.createVisit(LocalDateTime.of(2300, 10, 10, 10, 30), TestDataFactory.createPatient("test"));
+        Visit visit = TestDataFactory.createVisit(LocalDateTime.of(2300, 10, 10, 10, 30), TestDataFactory.createPatient("test"), null);
         when(visitRepository.findByTerm(eq(LocalDateTime.of(2300, 10, 10, 10, 30))))
                 .thenReturn(Optional.of(visit));
 

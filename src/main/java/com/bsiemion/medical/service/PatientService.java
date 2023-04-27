@@ -6,20 +6,18 @@ import com.bsiemion.medical.mapper.PatientDtoMapper;
 import com.bsiemion.medical.model.dto.MedicalMessageDto;
 import com.bsiemion.medical.model.dto.PatientDto;
 import com.bsiemion.medical.model.entity.Patient;
-import com.bsiemion.medical.repozitory.PatientRepository;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
+import com.bsiemion.medical.repository.PatientRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class PatientService {
-    private PatientRepository patientRepository;
-    private PatientDtoMapper patientDtoMapper;
+    private final PatientRepository patientRepository;
+    private final PatientDtoMapper patientDtoMapper;
 
     public PatientDto addPatient(Patient patient) {
         patientRepository.save(patient);
@@ -68,7 +66,7 @@ public class PatientService {
         if (editInfo.getEmail() == null || editInfo.getPassword() == null || editInfo.getBirthday() == null ||
                 editInfo.getLastName() == null || editInfo.getFirstName() == null || editInfo.getPhoneNumber() == null ||
                 editInfo.getIdCardNo() == null) {
-            throw new PatientIllegalDataException("Some value is null");
+            throw new PatientIllegalDataException("values:email, password, birthday, last name, name, phone number, id card number are required");
         }
     }
 }
