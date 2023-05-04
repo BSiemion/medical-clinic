@@ -17,9 +17,4 @@ public class PatientExceptionHandler {
     public ResponseEntity<String> patientNotFoundExceptionErrorResponse(PatientNotFoundException patientNotFoundException){
         return ResponseEntity.status(404).body(patientNotFoundException.getMessage());
     }
-
-    @ExceptionHandler(Exception.class)
-    public ResponseEntity<String> generalErrorResponse(Exception exception){
-        return ResponseEntity.status(500).body("Unknown error occured");
-    }
 }

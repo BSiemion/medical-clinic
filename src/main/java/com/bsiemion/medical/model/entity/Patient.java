@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
+
 @EqualsAndHashCode
 @ToString
 @NoArgsConstructor
@@ -11,6 +12,7 @@ import java.time.LocalDate;
 @Setter
 @Getter
 @Entity
+@Builder
 public class Patient {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,7 +26,7 @@ public class Patient {
     private String phoneNumber;
     private LocalDate birthday;
 
-    public void editPatient(Patient patient){
+    public void editPatient(Patient patient) {
         this.setBirthday(patient.getBirthday());
         this.setEmail(patient.getEmail());
         this.setPassword(patient.getPassword());
