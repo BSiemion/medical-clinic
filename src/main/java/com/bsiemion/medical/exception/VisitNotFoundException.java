@@ -1,7 +1,9 @@
 package com.bsiemion.medical.exception;
 
-public class VisitNotFoundException extends RuntimeException{
-    public VisitNotFoundException(){
-        super("Visit not found");
+import org.springframework.http.HttpStatus;
+
+public class VisitNotFoundException extends MedicalClinicException{
+    public VisitNotFoundException(HttpStatus httpStatus){
+        super("Visit not found", httpStatus);
     }
 }

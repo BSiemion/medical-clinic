@@ -1,7 +1,9 @@
 package com.bsiemion.medical.exception;
 
-public class VisitIllegalDateException extends RuntimeException{
-    public VisitIllegalDateException(String message){
-        super(message);
+import org.springframework.http.HttpStatus;
+
+public class VisitIllegalDateException extends MedicalClinicException{
+    public VisitIllegalDateException(String message, HttpStatus httpStatus){
+        super(message, httpStatus);
     }
 }

@@ -1,7 +1,9 @@
 package com.bsiemion.medical.exception;
 
-public class PatientException extends RuntimeException{
-    public PatientException(String message){
-        super(message);
+import org.springframework.http.HttpStatus;
+
+public class PatientException extends MedicalClinicException{
+    public PatientException(String message, HttpStatus httpStatus){
+        super(message, httpStatus);
     }
 }

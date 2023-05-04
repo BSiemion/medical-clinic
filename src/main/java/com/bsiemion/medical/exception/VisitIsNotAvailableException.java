@@ -1,7 +1,9 @@
 package com.bsiemion.medical.exception;
 
-public class VisitIsNotAvailableException extends RuntimeException{
-    public VisitIsNotAvailableException(String message){
-        super(message);
+import org.springframework.http.HttpStatus;
+
+public class VisitIsNotAvailableException extends MedicalClinicException{
+    public VisitIsNotAvailableException(String message, HttpStatus httpStatus){
+        super(message, httpStatus);
     }
 }

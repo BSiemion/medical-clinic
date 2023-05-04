@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
+
 @EqualsAndHashCode
 @ToString
 @NoArgsConstructor
@@ -25,7 +26,7 @@ public class Patient {
     private String phoneNumber;
     private LocalDate birthday;
 
-    public void editPatient(Patient patient){
+    public void editPatient(Patient patient) {
         this.setBirthday(patient.getBirthday());
         this.setEmail(patient.getEmail());
         this.setPassword(patient.getPassword());

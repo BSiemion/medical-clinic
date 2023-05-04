@@ -25,7 +25,8 @@ public class Visit {
     public Visit(LocalDateTime term) {
         this.term = term;
     }
-    public boolean isAvailable(){
+
+    public boolean isAvailable() {
         return patient == null;
     }
 }

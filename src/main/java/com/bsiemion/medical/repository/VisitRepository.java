@@ -12,5 +12,6 @@ import java.util.Optional;
 @Repository
 public interface VisitRepository extends JpaRepository<Visit, Long> {
     Optional<Visit> findByTerm(LocalDateTime term);
+
     List<Visit> findByPatient(Patient patient);
 }

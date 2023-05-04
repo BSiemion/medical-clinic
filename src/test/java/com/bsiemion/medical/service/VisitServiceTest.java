@@ -41,7 +41,7 @@ public class VisitServiceTest {
 
     @Test
     void addVisit_NewVisit_Created() {
-        VisitCreationDto visitCreationDto = TestDataFactory.createVisitCreationDto(LocalDateTime.of(2300, 10, 10, 10, 30), TestDataFactory.createPatient("test"));
+        VisitCreationDto visitCreationDto = TestDataFactory.createVisitCreationDto(LocalDateTime.of(2300, 10, 10, 10, 30), null);
         Visit visit = visitDtoMapper.dtoToVisit(visitCreationDto);
         when(visitRepository.findByTerm(eq(visit.getTerm()))).thenReturn(Optional.empty());
         when(visitRepository.save(eq(visit))).thenReturn(visit);
@@ -138,7 +138,6 @@ public class VisitServiceTest {
                 () -> visitService.addPatientToVisit("test", LocalDateTime.of(2300, 10, 10, 10, 30)));
         Assertions.assertEquals("This date is already taken", result.getMessage());
     }
-
 
 
     @Test

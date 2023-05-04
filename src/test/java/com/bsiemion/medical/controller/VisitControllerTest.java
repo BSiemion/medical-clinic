@@ -7,8 +7,11 @@ import com.bsiemion.medical.model.entity.Patient;
 import com.bsiemion.medical.model.entity.Visit;
 import com.bsiemion.medical.repository.PatientRepository;
 import com.bsiemion.medical.repository.VisitRepository;
+import com.bsiemion.medical.service.PatientService;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -21,6 +24,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.mockito.Mockito.mock;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 
 @SpringBootTest
@@ -36,6 +40,9 @@ public class VisitControllerTest {
     private PatientRepository patientRepository;
     @Autowired
     private PatientDtoMapper patientDtoMapper;
+    @BeforeEach
+    void setUp() {
+    }
 
     @Test
     void getVisit_Returned() throws Exception {

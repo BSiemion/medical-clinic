@@ -3,6 +3,7 @@ package com.bsiemion.medical.handler;
 import com.bsiemion.medical.exception.VisitIllegalDateException;
 import com.bsiemion.medical.exception.VisitIsNotAvailableException;
 import com.bsiemion.medical.exception.VisitNotFoundException;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;

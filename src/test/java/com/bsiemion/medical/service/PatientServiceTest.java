@@ -4,6 +4,7 @@ import com.bsiemion.medical.TestDataFactory;
 import com.bsiemion.medical.exception.PatientIllegalDataException;
 import com.bsiemion.medical.exception.PatientNotFoundException;
 import com.bsiemion.medical.mapper.PatientDtoMapper;
+import com.bsiemion.medical.model.dto.PatientCreationDto;
 import com.bsiemion.medical.model.dto.PatientDto;
 import com.bsiemion.medical.model.entity.Patient;
 import com.bsiemion.medical.repository.PatientRepository;
@@ -41,10 +42,11 @@ public class PatientServiceTest {
 
     @Test
     void addPatient_NewPatient_Created() {
-        Patient patient = TestDataFactory.createPatient("test");
+        PatientCreationDto patientCreationDto = TestDataFactory.createPatientCreationDto("test");
+        Patient patient = mapper.dtoToPatient(patientCreationDto);
         when(patientRepository.save(eq(patient))).thenReturn(patient);
 
-        PatientDto patientDto = patientService.addPatient(patient);
+        PatientDto patientDto = patientService.addPatient(patientCreationDto);
 
         Assertions.assertEquals("test", patientDto.getEmail());
         verify(patientRepository, times(1)).save(patient);
@@ -116,7 +118,8 @@ public class PatientServiceTest {
 
         PatientIllegalDataException result = Assertions.assertThrows(PatientIllegalDataException.class,
                 () -> patientService.editPatient("test", editInfo));
-        Assertions.assertEquals("Some value is null", result.getMessage());
+        Assertions.assertEquals("values:email, password, birthday, last name, name, phone number, id card number are required"
+                , result.getMessage());
     }
 
     @Test

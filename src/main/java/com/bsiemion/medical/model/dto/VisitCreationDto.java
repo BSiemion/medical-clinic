@@ -1,16 +1,14 @@
 package com.bsiemion.medical.model.dto;
 
 import com.bsiemion.medical.model.entity.Patient;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
 @Getter
 @Setter
 @AllArgsConstructor
+@NoArgsConstructor
 @Builder
 public class VisitCreationDto {
     private LocalDateTime term;
