@@ -1,0 +1,29 @@
+databaseChangeLog:
+  - changeSet:
+      id: 2
+      author: bsiemion
+      changes:
+            - createTable:
+                tableName: visit
+                columns:
+                  - column:
+                      autoIncrement: true
+                      constraints:
+                        nullable: false
+                        primaryKey: true
+                        primaryKeyName: pk_visit_id
+                      name: id
+                      type: int
+                  - column:
+                      name: term
+                      type: datetime
+                      constraints:
+                        unique: true
+                        uniqueConstraintName: unique_visit_term
+                  - column:
+                      constraints:
+                        nullable: true
+                        foreignKey: true
+                        foreignKeyName: fk_patient_id
+                      name: patient_id
+                      type: int

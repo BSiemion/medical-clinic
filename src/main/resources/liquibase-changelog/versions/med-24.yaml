@@ -1,0 +1,20 @@
+databaseChangeLog:
+  - changeSet:
+      id: 5
+      author: bsiemion
+      changes:
+        - createTable:
+            tableName: facility_doctor
+            columns:
+              - column:
+                  constraints:
+                    foreignKeyName: fk_doctor_id
+                    references: doctor
+                  name: doctor_id
+                  type: int
+              - column:
+                  constraints:
+                    foreignKeyName: fk_facility_id
+                    references: facility
+                  name: facility_id
+                  type: int

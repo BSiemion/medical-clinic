@@ -6,7 +6,7 @@ import com.bsiemion.medical.model.entity.Patient;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
-public interface PatientDtoMapper {
+public interface PatientMapper {
     PatientDto patientToDto(Patient patient);
     Patient dtoToPatient(PatientCreationDto patientCreationDto);
 }

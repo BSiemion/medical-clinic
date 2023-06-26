@@ -1,17 +1,15 @@
 package com.bsiemion.medical.controller;
 
 import com.bsiemion.medical.TestDataFactory;
-import com.bsiemion.medical.mapper.PatientDtoMapper;
+import com.bsiemion.medical.mapper.PatientMapper;
 import com.bsiemion.medical.model.dto.VisitCreationDto;
 import com.bsiemion.medical.model.entity.Patient;
 import com.bsiemion.medical.model.entity.Visit;
 import com.bsiemion.medical.repository.PatientRepository;
 import com.bsiemion.medical.repository.VisitRepository;
-import com.bsiemion.medical.service.PatientService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -24,7 +22,6 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.mockito.Mockito.mock;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 
 @SpringBootTest
@@ -39,7 +36,7 @@ public class VisitControllerTest {
     @Autowired
     private PatientRepository patientRepository;
     @Autowired
-    private PatientDtoMapper patientDtoMapper;
+    private PatientMapper patientMapper;
     @BeforeEach
     void setUp() {
     }
@@ -47,7 +44,6 @@ public class VisitControllerTest {
     @Test
     void getVisit_Returned() throws Exception {
         Visit visit = TestDataFactory.createVisit(LocalDateTime.of(2300, 10, 10, 10, 30), null, null);
-        visit.setId(null);
         visitRepository.save(visit);
         this.mockMvc
                 .perform(MockMvcRequestBuilders.get("/visits/by-term/{term}", LocalDateTime.of(2300, 10, 10, 10, 30)))

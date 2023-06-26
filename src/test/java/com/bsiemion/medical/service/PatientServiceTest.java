@@ -3,7 +3,7 @@ package com.bsiemion.medical.service;
 import com.bsiemion.medical.TestDataFactory;
 import com.bsiemion.medical.exception.PatientIllegalDataException;
 import com.bsiemion.medical.exception.PatientNotFoundException;
-import com.bsiemion.medical.mapper.PatientDtoMapper;
+import com.bsiemion.medical.mapper.PatientMapper;
 import com.bsiemion.medical.model.dto.PatientCreationDto;
 import com.bsiemion.medical.model.dto.PatientDto;
 import com.bsiemion.medical.model.entity.Patient;
@@ -30,13 +30,13 @@ import static org.mockito.Mockito.*;
 public class PatientServiceTest {
 
     private PatientRepository patientRepository;
-    private PatientDtoMapper mapper;
+    private PatientMapper mapper;
     private PatientService patientService;
 
     @BeforeEach
     void setUp() {
         this.patientRepository = mock(PatientRepository.class);
-        this.mapper = Mappers.getMapper(PatientDtoMapper.class);
+        this.mapper = Mappers.getMapper(PatientMapper.class);
         this.patientService = new PatientService(patientRepository, mapper);
     }
 

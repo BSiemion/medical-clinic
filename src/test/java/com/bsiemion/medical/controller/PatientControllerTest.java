@@ -1,5 +1,7 @@
 package com.bsiemion.medical.controller;
 
+import com.bsiemion.medical.TestDataFactory;
+import com.bsiemion.medical.model.dto.PatientCreationDto;
 import com.bsiemion.medical.model.entity.Patient;
 import com.bsiemion.medical.repository.PatientRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -28,8 +30,8 @@ public class PatientControllerTest {
 
     @Test
     void addPatient_Returned() throws Exception {
-        Patient patient = createPatient("test");
-        String patientJson = mapper.writeValueAsString(patient);
+        PatientCreationDto patientCreationDto = TestDataFactory.createPatientCreationDto("test");
+        String patientJson = mapper.writeValueAsString(patientCreationDto);
         this.mockMvc
                 .perform(MockMvcRequestBuilders.post("/patients")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -42,7 +44,7 @@ public class PatientControllerTest {
 
     @Test
     void removePatient_Returned() throws Exception {
-        Patient patient = createPatient("test");
+        Patient patient = TestDataFactory.createPatient("test");
         patientRepository.save(patient);
         this.mockMvc
                 .perform(MockMvcRequestBuilders.delete("/patients/{email}", "test"))
@@ -54,7 +56,7 @@ public class PatientControllerTest {
 
     @Test
     void editPatient_Returned() throws Exception {
-        Patient patient = createPatient("test");
+        Patient patient = TestDataFactory.createPatient("test");
         patientRepository.save(patient);
         Patient editInfo = Patient.builder()
                 .email("test")
@@ -80,7 +82,7 @@ public class PatientControllerTest {
 
     @Test
     void editPassword_MessageReturned() throws Exception {
-        Patient patient = createPatient("test5");
+        Patient patient = TestDataFactory.createPatient("test5");
         patientRepository.save(patient);
 
         String password = "12345";
@@ -95,7 +97,7 @@ public class PatientControllerTest {
 
     @Test
     void getAllPatients_Returned() throws Exception {
-        Patient patient = createPatient("test");
+        Patient patient = TestDataFactory.createPatient("test");
         patientRepository.save(patient);
         this.mockMvc
                 .perform(MockMvcRequestBuilders.get("/patients"))
@@ -108,7 +110,7 @@ public class PatientControllerTest {
 
     @Test
     void getPatient_Returned() throws Exception {
-        Patient patient = createPatient("test");
+        Patient patient = TestDataFactory.createPatient("test");
         patientRepository.save(patient);
         this.mockMvc
                 .perform(MockMvcRequestBuilders.get("/patients/{email}", "test"))
@@ -116,18 +118,5 @@ public class PatientControllerTest {
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.email").value("test"));
-    }
-
-    private static Patient createPatient(String email) {
-        return Patient.builder()
-                .email(email)
-                .id(1L)
-                .birthday(LocalDate.of(2000, 10, 10))
-                .firstName("testName")
-                .idCardNo("1352523523")
-                .lastName("testLastName")
-                .password("testPass")
-                .phoneNumber("1235436")
-                .build();
     }
 }

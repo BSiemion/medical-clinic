@@ -4,7 +4,7 @@ import com.bsiemion.medical.exception.PatientNotFoundException;
 import com.bsiemion.medical.exception.VisitIllegalDateException;
 import com.bsiemion.medical.exception.VisitIsNotAvailableException;
 import com.bsiemion.medical.exception.VisitNotFoundException;
-import com.bsiemion.medical.mapper.VisitDtoMapper;
+import com.bsiemion.medical.mapper.VisitMapper;
 import com.bsiemion.medical.model.dto.VisitCreationDto;
 import com.bsiemion.medical.model.dto.VisitDto;
 import com.bsiemion.medical.model.entity.Patient;
@@ -13,7 +13,6 @@ import com.bsiemion.medical.repository.PatientRepository;
 import com.bsiemion.medical.repository.VisitRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -25,7 +24,7 @@ import java.util.stream.Collectors;
 public class VisitService {
     private final VisitRepository visitRepository;
     private final PatientRepository patientRepository;
-    private final VisitDtoMapper visitDtoMapper;
+    private final VisitMapper visitDtoMapper;
 
     public VisitDto addVisit(VisitCreationDto visitCreationDto) {
         LocalDateTime currentTime = LocalDateTime.now();

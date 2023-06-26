@@ -5,7 +5,7 @@ import com.bsiemion.medical.exception.PatientNotFoundException;
 import com.bsiemion.medical.exception.VisitIllegalDateException;
 import com.bsiemion.medical.exception.VisitIsNotAvailableException;
 import com.bsiemion.medical.exception.VisitNotFoundException;
-import com.bsiemion.medical.mapper.VisitDtoMapper;
+import com.bsiemion.medical.mapper.VisitMapper;
 import com.bsiemion.medical.model.dto.VisitCreationDto;
 import com.bsiemion.medical.model.dto.VisitDto;
 import com.bsiemion.medical.model.entity.Patient;
@@ -28,13 +28,13 @@ import static org.mockito.Mockito.*;
 public class VisitServiceTest {
     private VisitRepository visitRepository;
     private PatientRepository patientRepository;
-    private VisitDtoMapper visitDtoMapper;
+    private VisitMapper visitDtoMapper;
     private VisitService visitService;
 
     @BeforeEach
     void setUp() {
         this.visitRepository = mock(VisitRepository.class);
-        this.visitDtoMapper = Mappers.getMapper(VisitDtoMapper.class);
+        this.visitDtoMapper = Mappers.getMapper(VisitMapper.class);
         this.patientRepository = mock(PatientRepository.class);
         this.visitService = new VisitService(visitRepository, patientRepository, visitDtoMapper);
     }
